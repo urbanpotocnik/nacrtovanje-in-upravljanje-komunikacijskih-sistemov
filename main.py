@@ -6,8 +6,8 @@ from sqlalchemy.exc import NoResultFound
 from pydantic import BaseModel
 from typing import List
 
-from models import Base, Item as ItemModel
-from database import engine, SessionLocal
+from models import Item as ItemModel
+from database import engine, SessionLocal, Base
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 

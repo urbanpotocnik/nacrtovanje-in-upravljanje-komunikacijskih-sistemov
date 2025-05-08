@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -8,3 +8,6 @@ SessionLocal = sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,
 )
+
+# Define Base for SQLAlchemy models
+Base = declarative_base()

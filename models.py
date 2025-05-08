@@ -6,10 +6,10 @@ from sqlalchemy.exc import NoResultFound
 from pydantic import BaseModel
 from typing import List
 
-from models import Base, Item as ItemModel
-from database import engine, SessionLocal
+from database import engine, SessionLocal, Base
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import Column, Integer, String
 
 
 
@@ -94,6 +94,14 @@ async def delete_item(item_id: int, session: AsyncSession = Depends(get_session)
     await session.delete(db_item)
     await session.commit()
     return {"detail": "Item deleted"}
+
+# Define the Item model
+class Item(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, nullable=True)
 
 
 app = VersionedFastAPI(app, version_format='{major}', prefix_format='/v{major}')
